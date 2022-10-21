@@ -13,7 +13,7 @@ with open("links.txt", "r") as file:
         def descargas(variable):
             
             route = strftime(rf"{variable}s\fecha %Y-%m")
-            deleteFile = os.listdir(route)
+            
             
 
             if re.search(f"{variable}", link):
@@ -24,6 +24,7 @@ with open("links.txt", "r") as file:
                         
 
                 else:
+                    deleteFile = os.listdir(route)
                     for item in deleteFile:
                       if item.endswith(".csv"):
                         #try:
