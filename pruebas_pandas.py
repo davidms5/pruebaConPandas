@@ -51,7 +51,7 @@ filtro_nuevo = [datos for valores in filtro.values() for datos in valores]
 def respuesta():
    for i in datos:
       #este codigo completo convierte directamente el csv bajado a latin 1 
-      ruta = rf"{i}s\fecha 2022-09\{i}s-17-09-2022.csv"
+      ruta = rf"{i}s\fecha 2022-10\{i}s-23-10-2022.csv"
       df = pd.read_csv(ruta, encoding='utf-8-sig')# utf 8 cuando lo recien lo baja y latin 1 cuando ya lo convirtio
       #df = pd.read_csv(ruta, encoding='utf-8-sig')
       #df.to_csv(ruta, encoding='latin1', index=False) #hacer un bucle con esto para corregir los acentos cuando recien lo descarga
@@ -105,17 +105,13 @@ fuentes =   registros_totales['FUENTE'].unique()
 lista3 = [*categorias, *fuentes]
 
 
-fuentes_total = registros_totales.groupby(['PROVINCIA'])['FUENTE'].value_counts()
+fuentes_total = registros_totales[['FUENTE', 'CATEGORIA']].value_counts()
+#usar esto
 
 prov_category = registros_totales.groupby(['PROVINCIA'])['CATEGORIA'].value_counts()
 
 
-def suma_por_provincia(data):
-   
-
-   for indice in lista3:
-      for localidad in provincia:
-         data.loc[indice][localidad] = prov_category.loc[localidad][indice]#aqui hay un error KeyError
+#aqui hay un error KeyError
          #ver si con .append en un dataframe vacio puedo llenarlo usando un for como vi en una pagina
    #la idea aqui es que con cada for le aplique el valor a cada provincia mientras itera por las categorias y luego fuentes
    # ver luego sobre como llenar casillas especificas de un dataframe con un for
@@ -123,16 +119,17 @@ def suma_por_provincia(data):
 
    #poner el codigo con data.loc
 
+print(fuentes_total)
    
 #.loc["Buenos Aires"]["Bibliotecas Populares"]
 
 
-tabla_final = pd.DataFrame(index=lista3, columns=provincia)  
+#tabla_final = pd.DataFrame(index=lista3, columns=provincia)  
 
 
 #suma_por_provincia(tabla_final)
 
-print(tabla_final)
+#print(tabla_final)
 
 #print(tabla_final.loc["Bibliotecas Populares"])
 
